@@ -1,0 +1,22 @@
+.fade {
+  @include transition($transition-fade);
+
+  &:not(.show) {
+    opacity: 0;
+  }
+}
+
+.collapse {
+  &:not(.show) {
+    display: none;
+  }
+}
+
+.collapsing {
+  position: relative;
+  // height: 0;
+  overflow: hidden;
+  max-height: 0;
+  // overflow: hidden;
+  transition: max-height 0.3s ease;
+}
