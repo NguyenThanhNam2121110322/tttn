@@ -43,25 +43,25 @@ function Product_detail() {
 
   const { cartItems } = useContext(CartContext);
 
-const handleAddToCart = () => {
-  const existingCartItem = cartItems.find(item => item.id === products[0].id);
-  if (existingCartItem) {
-    addToCart({
-      ...existingCartItem,
-      quantity: existingCartItem.quantity + quantity
-    });
-  } else {
-    const newCartItem = {
-      id: products[0].id,
-      name: products[0].productName,
-      price: products[0].regularPrice,
-      image: products[0].galleries && products[0].galleries[0] ? products[0].galleries[0].imagePath : '',
-      quantity: quantity
-    };
-    addToCart(newCartItem);
-  }
-  showSuccessAlert();
-};
+  const handleAddToCart = () => {
+    const existingCartItem = cartItems.find(item => item.id === products[0].id);
+    if (existingCartItem) {
+      addToCart({
+        ...existingCartItem,
+        quantity: quantity
+      });
+    } else {
+      const newCartItem = {
+        id: products[0].id,
+        name: products[0].productName,
+        price: products[0].regularPrice,
+        image: products[0].galleries && products[0].galleries[0] ? products[0].galleries[0].imagePath : '',
+        quantity: quantity
+      };
+      addToCart(newCartItem);
+    }
+    showSuccessAlert();
+  };
 
 
 

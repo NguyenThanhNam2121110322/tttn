@@ -3,6 +3,13 @@ import TagsList from './views/base/tags/TagList'
 import EditTags from './views/base/tags/EditTag'
 import AddTag from './views/base/tags/AddTags'
 
+import CustomerList from './views/base/customer/List'
+import EditCustomer from './views/base/customer/Edit'
+import AddCustomer from './views/base/customer/Add'
+
+import OrderList from './views/base/order/List'
+import EditOrder from './views/base/order/Edit'
+import AddOrder from './views/base/order/Add'
 
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -104,6 +111,17 @@ const routes = [
   { path: '/base/tag/edit/:id', name: 'Tag Edit', element: EditTags },
   { path: '/base/tag/add', name: 'Tag Add', element: AddTag },
 
+  //duong dan customer
+  { path: '/base/customer/list', name: 'Customer List', element: CustomerList },
+  { path: '/base/customer/edit/:id', name: 'Customer Edit', element: EditCustomer },
+  { path: '/base/customer/add', name: 'Customer Add', element: AddCustomer },
+
+  //duong dan customer
+  { path: '/base/order/list', name: 'Order List', element: OrderList },
+  { path: '/base/order/edit/:id', name: 'Order Edit', element: EditOrder },
+  { path: '/base/order/add', name: 'Order Add', element: AddOrder },
+
+  //
   { path: '/base/tooltips', name: 'Tooltips', element: Tooltips },
 
 

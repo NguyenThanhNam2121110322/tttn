@@ -127,6 +127,16 @@ const _nav = [
         name: 'Tag',
         to: '/base/tag/list',
       },
+      {
+        component: CNavItem,
+        name: 'Customer',
+        to: '/base/customer/list',
+      },
+      {
+        component: CNavItem,
+        name: 'Order',
+        to: '/base/order/list',
+      },
     ],
   },
   // {

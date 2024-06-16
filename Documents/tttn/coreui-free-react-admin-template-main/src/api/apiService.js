@@ -31,7 +31,7 @@ export function editProduct(endpoint, data) {
   return callApi(endpoint, "PUT", data);
 }
 
-export function deleteProductById(endpoint,id) {
+export function deleteProductById(endpoint, id) {
   return callApi(`${endpoint}/${id}`, "DELETE");
 }
 
@@ -41,18 +41,17 @@ export function getAllCategories(endpoint) {
   return callApi(endpoint, "GET");
 }
 export function addCategory(endpoint, data) {
-    return callApi(endpoint, "POST", data);
-  }
+  return callApi(endpoint, "POST", data);
+}
 
-  export function deleteCategoryById(endpoint,id) {
-    return callApi(`${endpoint}/${id}`, "DELETE");
-  }
+export function deleteCategoryById(endpoint, id) {
+  return callApi(`${endpoint}/${id}`, "DELETE");
+}
 
-  export function getCategoryById(endpoint, id) {
-    return callApi(`${endpoint}/${id}`, "GET");
-  }
-  
-  export function editCategory(endpoint, data) {
-    return callApi(endpoint, "PUT", data);
-  }
-  
+export function getCategoryById(endpoint, id) {
+  return callApi(`${endpoint}/${id}`, "GET");
+}
+
+export function editCategory(endpoint, data) {
+  return callApi(endpoint, "PUT", data);
+}

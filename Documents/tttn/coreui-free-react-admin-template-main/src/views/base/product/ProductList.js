@@ -60,25 +60,25 @@ const Tables = () => {
   return (
     <CRow>
       <CCardBody>
-  
-  
-      
-  
+
+
+
+
         {/* Existing table code */}
       </CCardBody>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
             <strong>    <Link to="/base/product/addProduct">
-                          <Button
-                            size="small"
-                            variant="contained"
-                            color="success"
-                          >
-                       Add Product
-                          </Button>
+              <Button
+                size="small"
+                variant="contained"
+                color="success"
+              >
+                Add Product
+              </Button>
 
-                        </Link></strong> <small></small>
+            </Link></strong> <small></small>
           </CCardHeader>
           <CCardBody>
 
@@ -138,7 +138,7 @@ const Tables = () => {
                           <span key={index}>
                             {category.categoryName}
                             {index !== row.categories.length - 1 ? ', ' : ''}
-                          </span> 
+                          </span>
                         ))}</CTableDataCell>
 
                       <CTableDataCell> {row.tags.map((tag, index) => (
