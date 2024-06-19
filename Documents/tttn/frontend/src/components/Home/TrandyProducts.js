@@ -9,7 +9,7 @@ function TrandyProducts() {
 
   useEffect(() => {
     // Gọi API để lấy danh sách category khi component được render
-    axios.get(baseURL + `products`)
+    axios.get(baseURL + `products/tag/${"Trandy"}`)
       .then(response => {
         console.log("produtc", response.data)
         // Xử lý dữ liệu trả về từ API
@@ -38,9 +38,9 @@ function TrandyProducts() {
               <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
                 <h6 className="text-truncate mb-3">{product.productName}</h6>
                 <div className="d-flex justify-content-center">
-                  <h6>$123.00</h6>
+                  <h6>{product.discountPrice}</h6>
                   <h6 className="text-muted ml-2">
-                    <del>$123.00</del>
+                    <del>{product.regularPrice}</del>
                   </h6>
                 </div>
               </div>

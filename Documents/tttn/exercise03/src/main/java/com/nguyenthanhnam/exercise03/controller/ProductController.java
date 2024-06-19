@@ -10,6 +10,7 @@ import com.nguyenthanhnam.exercise03.DTOs.ProductDTO;
 import com.nguyenthanhnam.exercise03.entity.Product;
 import com.nguyenthanhnam.exercise03.service.ProductService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -93,5 +94,30 @@ public class ProductController {
         Product product = new Product();
         BeanUtils.copyProperties(productDTO, product);
         return product;
+    }
+
+    // @GetMapping("/category/{categoryName}")
+    // public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable String categoryName) {
+    //     List<Product> products = productService.getProductsByCategory(categoryName);
+    //     if (!products.isEmpty()) {
+    //         List<ProductDTO> productDTOs = products.stream()
+    //                 .map(this::convertToDTO)
+    //                 .collect(Collectors.toList());
+    //         return ResponseEntity.ok(productDTOs);
+    //     } else {
+    //         return ResponseEntity.notFound().build();
+    //     }
+    // }
+    @GetMapping("/category/{categoryName}")
+    public ResponseEntity<List<ProductDTO>> getProductsByCategoryName(@PathVariable("categoryName") String categoryName) {
+        List<Product> products = productService.getProductsByCategoryName(categoryName);
+        if (products != null && !products.isEmpty()) {
+            List<ProductDTO> productDTOs = products.stream()
+                    .map(this::convertToDTO)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(productDTOs);
+        } else {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
     }
 }

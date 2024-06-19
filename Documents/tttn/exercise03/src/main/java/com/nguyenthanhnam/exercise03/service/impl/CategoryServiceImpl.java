@@ -56,33 +56,67 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findByParentId(parentId);
     }
 
+
     @Override
-    public Category updateCategory(UUID categoryId, Category updatedCategory) {
-        Category existingCategory = categoryRepository.findById(categoryId).orElse(null);
+  public Category updateCategory(UUID categoryId, Category updatedCategory) {
+    Category existingCategory = categoryRepository.findById(categoryId).orElse(null);
 
-        if (existingCategory != null) {
-            existingCategory.setCategoryName(updatedCategory.getCategoryName());
-            existingCategory.setImagePath(updatedCategory.getImagePath());
-            existingCategory.setParentId(updatedCategory.getParentId());
-            existingCategory.setCategoryDescription(updatedCategory.getCategoryDescription());
-            existingCategory.setIcon(updatedCategory.getIcon());
-            existingCategory.setActive(updatedCategory.getActive());
-            // existingCategory.setCreatedBy(updatedCategory.getCreatedBy());
-            // existingCategory.setUpdatedBy(updatedCategory.getUpdatedBy());
+    if (existingCategory != null) {
+        // Lưu đường dẫn của hình ảnh cũ
+        String oldImagePath = existingCategory.getImagePath();
 
-            return categoryRepository.save(existingCategory);
+        // Kiểm tra xem có đường dẫn hình ảnh mới được cung cấp hay không
+        String updatedImagePath = updatedCategory.getImagePath();
+        if (updatedImagePath != null) {
+            existingCategory.setImagePath(updatedImagePath); // Cập nhật đường dẫn hình ảnh mới
         }
+        
+        existingCategory.setCategoryName(updatedCategory.getCategoryName());
+        existingCategory.setParentId(updatedCategory.getParentId());
+        existingCategory.setCategoryDescription(updatedCategory.getCategoryDescription());
+        existingCategory.setIcon(updatedCategory.getIcon());
+        existingCategory.setActive(updatedCategory.getActive());
 
-        return null;
+        // Lưu danh mục đã cập nhật
+        Category updatedCategoryResult = categoryRepository.save(existingCategory);
+if (updatedImagePath != null && !updatedImagePath.equals(oldImagePath)) {
+    deleteImageFile(oldImagePath);
+}
+
+        return updatedCategoryResult;
     }
+
+    return null;
+}
+
+    // // xóa hình ảnh của category 1h23 18-5
     @Override
     public void deleteCategory(UUID categoryId) {
-        categoryRepository.deleteById(categoryId);
+        Category existingCategory = categoryRepository.findById(categoryId).orElse(null);
+        if (existingCategory != null) {
+            String imagePath = existingCategory.getImagePath();
+            deleteImageFile(imagePath);
+            categoryRepository.deleteById(categoryId);
+        }
+    }
+
+
+    // xóa hình ảnh của category 1h23 18-5
+    @Override
+    public void deleteImageFile(String imagePath) {
+        if (imagePath != null && !imagePath.isEmpty()) {
+            Path imageFilePath = Paths.get(UPLOAD_DIR, imagePath);
+            try {
+                Files.deleteIfExists(imageFilePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
     //
-    private final String UPLOAD_DIR = "C:/Users/MyPC/Documents/tttn/exercise03/src/main/resources/static/upload/categories/";
+    private final String UPLOAD_DIR = "D:/Study/TTTN/DoAn_TTTN/exercise03/src/main/resources/static/upload/categories/";
 
     @Override
     public Category saveImage(UUID categoryId, MultipartFile file, int i) {

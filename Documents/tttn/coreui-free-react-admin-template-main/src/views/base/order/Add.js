@@ -1,11 +1,14 @@
 import React from 'react'
 import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
 
 
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   addOrders,
+  getAllProducts,
+  getAllCustomers,
 } from "../../../api/OrderService";
 
 import { makeStyles } from "@mui/styles";
@@ -44,13 +47,16 @@ const AddOrder = () => {
   const [page, setPage] = useState(0); // Thêm state cho trang hiện tại
   const navigate = useNavigate();
 
-  const [firstName, setOrdersFirstName] = useState("");
-  const [lastName, setOrdersLastName] = useState("");
-  const [phone, setOrdersPhone] = useState("");
-  const [email, setOrdersEmail] = useState("");
-  const [passwordHash, setOrdersPasswordstName] = useState("")
+  const [quantity, setOrdersQuantity] = useState("");
+  const [price, setOrdersPrice] = useState("");
+  const [productId, setOrdersProductId] = useState("");
+  const [customerId, setOrdersCustomerId] = useState("");
+  const [productAll, setProductAll] = useState([]);
+  const [customerAll, setCustomerAll] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [customers, setCustomers] = useState([]);
 
-const [checkAdd, setCheckAdd] = useState(false);
+  const [checkAdd, setCheckAdd] = useState(false);
 
 
 
@@ -64,28 +70,42 @@ const [checkAdd, setCheckAdd] = useState(false);
     }
   }, [checkAdd, navigate]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const productData = await getAllProducts("products");
+        setProductAll(productData.data);
+
+        const customerData = await getAllCustomers("customers");
+        setCustomerAll(customerData.data);
+        console.log(customerData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   const handleAddOrder = (event) => {
     event.preventDefault();
 
     if (
-      firstName !== "" &&
-      lastName !== "" &&
-      phone !== "" &&
-      email !== "" &&
-      passwordHash !== ""
+
+      price !== "" &&
+      quantity !== ""
     ) {
       const order = {
-        firstName,
-        lastName,
-        phone,
-        email,
-        passwordHash,
+        productId :products.join((c) => (c)),
+        customerId :customers.join((c) => (c)),
+        price,
+        quantity,
 
       };
 
 
-      addOrders("orders", order).then((item) => {
+      addOrders("order-items", order).then((item) => {
         console.log("added", item);
         if (item.status === 201) {
           setCheckAdd(true);
@@ -98,6 +118,15 @@ const [checkAdd, setCheckAdd] = useState(false);
     }
   };
 
+  const handleChangeProducts = (event) => {
+    const selectedIds = event.target.value;
+    setProducts(selectedIds);
+  };
+  const handleChangeCustomers = (event) => {
+    const selectedIds = event.target.value;
+    setCustomers(selectedIds);
+  };
+
   return (
     <div className={classes.root}>
 
@@ -108,14 +137,81 @@ const [checkAdd, setCheckAdd] = useState(false);
               Add Order
             </Typography>
             <Grid item xs={12} container>
+
+            <Grid item xs={12}>
+                <Typography gutterBottom variant="subtitle1">
+                  Choose Product Name
+                </Typography>
+                <TextField
+                  id="products"
+                  name="products"
+                  select
+                  value={products}
+                  onChange={handleChangeProducts}
+                  SelectProps={{
+                    multiple: true,
+                    renderValue: (selected) => {
+                      const selectedCategories = selected.map((id) => {
+                        const category = productAll.find(
+                          (category) => category.id === id
+                        );
+                        return category ? category.productName : "";
+                      });
+                      return selectedCategories.join(", ");
+                    },
+                  }}
+                  variant="outlined"
+                  className={classes.txtInput}
+                >
+                  {productAll.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.productName}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+
               <Grid item xs={12}>
                 <Typography gutterBottom variant="subtitle1">
-                  First_name
+                  Choose Accounts
+                </Typography>
+                <TextField
+                  id="customers"
+                  name="customers"
+                  select
+                  value={customers}
+                  onChange={handleChangeCustomers}
+                  SelectProps={{
+                    multiple: true,
+                    renderValue: (selected) => {
+                      const selectedCategories = selected.map((id) => {
+                        const category = customerAll.find(
+                          (category) => category.id === id
+                        );
+                        return category ? category.email : "";
+                      });
+                      return selectedCategories.join(", ");
+                    },
+                  }}
+                  variant="outlined"
+                  className={classes.txtInput}
+                >
+                  {customerAll.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.email}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Typography gutterBottom variant="subtitle1">
+                  Quantity
                 </Typography>
                 <TextField
                   id="name"
-                  onChange={(e) => setOrdersFirstName(e.target.value)}
-                  value={firstName}
+                  onChange={(e) => setOrdersQuantity(e.target.value)}
+                  value={quantity}
                   name="name"
                   variant="outlined"
                   className={classes.txtInput}
@@ -124,12 +220,12 @@ const [checkAdd, setCheckAdd] = useState(false);
               </Grid>
               <Grid item xs={12}>
                 <Typography gutterBottom variant="subtitle1">
-                Last_name
+                  Price
                 </Typography>
                 <TextField
                   id="icon"
-                  onChange={(e) => setOrdersLastName(e.target.value)}
-                  value={lastName}
+                  onChange={(e) => setOrdersPrice(e.target.value)}
+                  value={price}
                   name="icon"
                   className={classes.txtInput}
                   multiline
@@ -138,51 +234,6 @@ const [checkAdd, setCheckAdd] = useState(false);
                 />
               </Grid>
 
-              <Grid item xs={12}>
-                <Typography gutterBottom variant="subtitle1">
-                Email
-                </Typography>
-                <TextField
-                  id="icon"
-                  onChange={(e) => setOrdersEmail(e.target.value)}
-                  value={email}
-                  name="icon"
-                  className={classes.txtInput}
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography gutterBottom variant="subtitle1">
-                Password
-                </Typography>
-                <TextField
-                  id="icon"
-                  onChange={(e) => setOrdersPasswordstName(e.target.value)}
-                  value={passwordHash}
-                  name="icon"
-                  className={classes.txtInput}
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography gutterBottom variant="subtitle1">
-                Phone
-                </Typography>
-                <TextField
-                  id="icon"
-                  onChange={(e) => setOrdersPhone(e.target.value)}
-                  value={phone}
-                  name="icon"
-                  className={classes.txtInput}
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                />
-              </Grid>
               <Grid item xs={12} style={{ marginTop: "30px" }}>
                 <Button
                   type="button"

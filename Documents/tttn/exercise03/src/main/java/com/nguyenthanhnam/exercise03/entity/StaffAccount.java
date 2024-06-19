@@ -63,4 +63,8 @@ public class StaffAccount extends DateTime{
 
     @OneToMany(mappedBy = "account")
     private Set<Notification> notifications = new HashSet<>();
+
+    public String getPassword() {
+        return this.passwordHash;
+    }
 }

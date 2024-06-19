@@ -33,7 +33,7 @@ public class GalleryServiceImpl implements GalleryService {
     @Autowired
     private ProductRepository productRepository;
 
-    private final String UPLOAD_DIR = "C:/Users/MyPC/Documents/tttn2/exercise03/src/main/resources/static/upload/";
+    private final String UPLOAD_DIR = "D:/Study/TTTN/DoAn_TTTN/exercise03/src/main/resources/static/upload/";
 
     @Override
     public Gallery saveImage(UUID productId, MultipartFile file, int i) {

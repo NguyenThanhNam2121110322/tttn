@@ -8,29 +8,26 @@ function Login() {
   const [passwordHash, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
-  const handleLogin = (token, firstName, lastName, phone,id) => {
+  const handleLogin = (token, lastName) => {
     localStorage.setItem("accessToken", token);
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("email", email);
-    localStorage.setItem("firstName", firstName);
-    localStorage.setItem("lastName", lastName);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("User_id", id);
+    localStorage.setItem("username", lastName);
+    
     setIsLoggedIn(true);
-    console.log("user_id:", localStorage.getItem("User_id"));
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
       const response = await axios.post('http://localhost:8080/api/customers/login', { email, passwordHash });
       console.log(response.data);
-      handleLogin(response.data.token, response.data.customer.firstName, response.data.customer.lastName, response.data.customer.phone, response.data.customer.id);
+      handleLogin(response.data.token, response.data.lastName);
     } catch (error) {
       console.error("Error submitting data:", error);
       alert("Email hoặc password không đúng");
+     
     }
   };
 

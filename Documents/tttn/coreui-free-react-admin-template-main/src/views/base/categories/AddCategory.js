@@ -107,7 +107,7 @@ export default function AddCategory() {
 
 
     const handleSelectParentCategory = (categoryId) => {
-        setParentId(categoryId);
+        setParentId(categoryId || null);
       };
 
 
@@ -119,12 +119,15 @@ export default function AddCategory() {
             categoryName,
             categoryDescription,
             icon,
-            parentId:{
-                id: parentId
-            },
+            // parentId:{
+            //     id: parentId
+            // },
             imagePath,
             active,
           };
+          if (parentId) {
+            category.parentId = { id: parentId };
+          }
       
           console.log(category);
           console.log("images", selectedImages);
@@ -240,7 +243,7 @@ export default function AddCategory() {
       >
         <MenuItem value={null}>None</MenuItem>
         {categoryAll.map((category ) => (
-          <MenuItem key={category .id} value={category .id}>
+          <MenuItem key={category.id} value={category.id}>
             {category.categoryName}
           </MenuItem>
         ))}

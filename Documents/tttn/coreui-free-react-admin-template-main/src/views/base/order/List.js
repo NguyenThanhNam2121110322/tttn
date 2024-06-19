@@ -87,7 +87,7 @@ const OrdersList = () => {
                     <CTableHeaderCell scope="col">Product_Id</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Customer_Id</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Quantity</CTableHeaderCell>
-
+                    <CTableHeaderCell scope="col">Price</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Modify</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Delete</CTableHeaderCell>
                   </CTableRow>
@@ -104,12 +104,6 @@ const OrdersList = () => {
                       <CTableRow key={row.id}>
                         <CTableDataCell align="center">
                           {row.productId}
-                          {/* {row.products.map((product, index) => (
-                            <span key={index}>
-                              {product.id}
-                              {index !== row.products.length - 1 ? ', ' : ''}
-                            </span>
-                          ))} */}
                         </CTableDataCell>
                         <CTableDataCell >
                           {row.customerId}
@@ -117,10 +111,11 @@ const OrdersList = () => {
                         <CTableDataCell >
                           {row.quantity}
                         </CTableDataCell>
-
+                        <CTableDataCell >
+                          {row.price}
+                        </CTableDataCell>
 
                         <CTableDataCell>
-                          {/* <Link to={`/edit-product/${row.id}`}>Edit</Link> */}
                           <Link to={`/base/order/edit/${row.id}`}>
                             <Button
                               size="small"

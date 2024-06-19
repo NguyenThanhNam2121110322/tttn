@@ -104,7 +104,7 @@ function Cart() {
                                 {Object.values(uniqueProducts).map((item, index) => (
                                     <tr >
                                         <td class="align-middle"><img src={ImgUrl + item.image} alt="" style={{ width: "50px" }} /> {item.name}</td>
-                                        <td class="align-middle">${item.price}</td>
+                                        <td class="align-middle">{item.price} VND</td>
                                         <td class="align-middle">
                                             <div class="input-group quantity mx-auto" style={{ width: "100px" }}>
                                                 <div class="input-group-btn">
@@ -145,7 +145,7 @@ function Cart() {
                             <div class="card-footer border-secondary bg-transparent">
                                 <div class="d-flex justify-content-between mt-2">
                                     <h5 class="font-weight-bold">Total</h5>
-                                    <h5 class="font-weight-bold">${totalPrice}</h5>
+                                    <h5 class="font-weight-bold">{totalPrice} VND</h5>
                                 </div>
                                 <button class="btn btn-block btn-primary my-3 py-3" onClick={handleCheckout}>Proceed To Checkout</button>
                             </div>

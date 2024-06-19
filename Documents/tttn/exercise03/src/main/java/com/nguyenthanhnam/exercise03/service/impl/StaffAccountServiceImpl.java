@@ -3,6 +3,7 @@ package com.nguyenthanhnam.exercise03.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nguyenthanhnam.exercise03.entity.Customer;
 import com.nguyenthanhnam.exercise03.entity.StaffAccount;
 import com.nguyenthanhnam.exercise03.repository.StaffAccountRepository;
 import com.nguyenthanhnam.exercise03.service.StaffAccountService;
@@ -50,5 +51,10 @@ public class StaffAccountServiceImpl implements StaffAccountService {
     @Override
     public void deleteStaffAccount(UUID staffAccountId) {
         staffAccountRepository.deleteById(staffAccountId);
+    }
+
+      @Override
+    public StaffAccount getStaffByEmail(String email) {
+        return staffAccountRepository.findByEmail(email);
     }
 }

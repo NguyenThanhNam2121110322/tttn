@@ -144,6 +144,7 @@ const TagsList = () => {
                                     page={page}
                                     onPageChange={handleChangePage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
+                                    style={{ color: 'white' }}
                                 />
                             </CTable>
 

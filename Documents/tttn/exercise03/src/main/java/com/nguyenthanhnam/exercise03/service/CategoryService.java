@@ -11,19 +11,14 @@ import com.nguyenthanhnam.exercise03.entity.Gallery;
 public interface CategoryService {
 
     Category addCategory(Category category);
-
     Category getCategoryById(UUID categoryId);
-
     List<Category> getAllCategories();
-
+    void deleteImageFile(String imagePath);
     Category updateCategory(UUID categoryId, Category updatedCategory);
-
     void deleteCategory(UUID categoryId);
-
     List<Category> getCategoriesByParentId(UUID parentId);
     List<Category> getRootCategories();
     List<Category> findAllOrderByCreatedAtDesc();
-
     Category saveImage(UUID productId, MultipartFile file,int i);
     List<Category> saveImages(UUID productId, MultipartFile[] files);
 

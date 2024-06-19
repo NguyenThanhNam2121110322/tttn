@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function AddCategory() {
+export default function EditCategory() {
     const classes = useStyles();
     const [categoryOne, setCategoryOne] = useState([]);
     const [selectedcategoryOne, setSelectedCategoryOne] = useState([]);
@@ -49,7 +49,7 @@ export default function AddCategory() {
     const [categoryDescription, setCategoryDescription] = useState(null);
     const [icon, setIcon] = useState(null);
     const [parentId, setParentId] = useState(null);
-    
+
     const [imagePath, setImagePath] = useState(null);
     const [published, setPublished] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
@@ -88,7 +88,7 @@ export default function AddCategory() {
             console.error("Error fetching data:", error);
           }
         };
-    
+
         fetchData();
       }, [idCategory]);
       useEffect(() => {
@@ -103,7 +103,7 @@ export default function AddCategory() {
             console.error("Error fetching images:", error);
           }
         };
-    
+
         fetchImages();
       }, [idCategory]);
       const handleUploadImages = async (id) => {
@@ -111,7 +111,7 @@ export default function AddCategory() {
         imageFiles.forEach((image) => {
           formData.append("files", image);
         });
-    
+
         try {
           const response = await axios.post(
             `http://localhost:8080/api/categories/uploadImages/${id}`,
@@ -122,7 +122,7 @@ export default function AddCategory() {
               },
             }
           );
-    
+
           console.log("added ga", response);
           if (response.status === 200) {
             setCheckUpdate(true); // Nếu upload thành công, setCheckAdd thành true
@@ -136,7 +136,7 @@ export default function AddCategory() {
       };
       const handleEditCategory = async (event) => {
         event.preventDefault();
-    
+
         if (
           categoryName !== ""
         ) {
@@ -167,28 +167,28 @@ export default function AddCategory() {
           }
         }
       };
-    
+
       useEffect(() => {
         if (checkUpdate) {
           const timeout = setTimeout(() => {
             navigate("/base/category/list");
           }, 1000); // Thời gian chờ trước khi chuyển hướng (miliseconds)
-    
+
           // Xóa timeout khi component unmount hoặc khi checkUpdate thay đổi
           return () => clearTimeout(timeout);
         }
       }, [checkUpdate, navigate]);
-    
-    
+
+
       const handleFileChange = (event) => {
         const files = event.target.files;
         const imagesArray = [];
         const filesArray = [];
-    
+
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           const reader = new FileReader();
-    
+
           reader.onloadend = () => {
             imagesArray.push(reader.result);
             if (imagesArray.length === files.length) {
@@ -196,7 +196,7 @@ export default function AddCategory() {
               setImageFiles([...imageFiles, ...filesArray]); // Cập nhật mảng các file hình ảnh
             }
           };
-    
+
           if (file) {
             reader.readAsDataURL(file);
             filesArray.push(file); // Thêm file vào mảng các file
@@ -288,8 +288,8 @@ export default function AddCategory() {
 
 
 
-                      
-                        
+
+
                             <div
                                 style={{
                                     display: "flex",
@@ -326,7 +326,7 @@ export default function AddCategory() {
                       />
 
 
-                
+
         ))} */}
 
               {selectedImages.length === 0
@@ -349,10 +349,10 @@ export default function AddCategory() {
                         />
                       </div>
                     ))}
-        
-                       
 
-                       
+
+
+
                             </div>
                             <Grid item xs={12} style={{ marginTop: "30px" }}>
                                 <Button

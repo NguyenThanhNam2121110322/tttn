@@ -70,15 +70,15 @@ const Tables = () => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong>    <Link to="/base/product/addProduct">
-              <Button
-                size="small"
-                variant="contained"
-                color="success"
-              >
-                Add Product
-              </Button>
+                          <Button
+                            size="small"
+                            variant="contained"
+                            color="success"
+                          >
+                       Add Product
+                          </Button>
 
-            </Link></strong> <small></small>
+                        </Link></strong> <small></small>
           </CCardHeader>
           <CCardBody>
 
@@ -92,6 +92,7 @@ const Tables = () => {
                   <CTableHeaderCell scope="col">Discount Price</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Category</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Tag</CTableHeaderCell>
+                  <CTableHeaderCell scope="col">Số lượng</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Publish</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Modify</CTableHeaderCell>
                   <CTableHeaderCell scope="col">Delete</CTableHeaderCell>
@@ -147,6 +148,7 @@ const Tables = () => {
                           {index !== row.tags.length - 1 && ', '}
                         </span>
                       ))}</CTableDataCell>
+                      <CTableHeaderCell>{row.quantity}</CTableHeaderCell>
                       <CTableDataCell align="center">
                         {row.published ? "Published" : "Not Published"}
                       </CTableDataCell>
@@ -189,6 +191,7 @@ const Tables = () => {
               page={page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
+              style={{ color: 'white' }}
             />
 
           </CCardBody>

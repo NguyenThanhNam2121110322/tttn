@@ -5,9 +5,9 @@ import Button from "@mui/material/Button";
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
-  getCustomersById,
-  editCustomers,
-} from "../../../api/CustomerService";
+  getOrdersById,
+  editOrders,
+} from "../../../api/OrderService";
 
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
@@ -39,31 +39,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditCustomers = () => {
+const EditOrders = () => {
 
   const classes = useStyles();
   const [page, setPage] = useState(0); // Thêm state cho trang hiện tại
   const navigate = useNavigate();
 
-  const [firstName, setCustomersFirstName] = useState("");
-  const [lastName, setCustomersLastName] = useState("");
-  const [phone, setCustomersPhone] = useState("");
-  const [email, setCustomersEmail] = useState("");
-  const [passwordHash, setCustomersPasswordstName] = useState("");
-  const { id: idCustomers } = useParams();
+  const [quantity, setOrdersQuantity] = useState("");
+  const [price, setOrdersPrice] = useState("");
+  const [productId, setOrdersProductId] = useState("");
+  const [customerId, setOrdersCustomerId] = useState("");
+
+  const { id: idOrders } = useParams();
   const [checkUpdate, setCheckUpdate] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const customer = await getCustomersById("customers", idCustomers);
-        console.log(customer.data);
-        setCustomersFirstName(customer.data.firstName);
-        setCustomersLastName(customer.data.lastName);
-        setCustomersPhone(customer.data.phone);
-        setCustomersEmail(customer.data.email);
-        setCustomersPasswordstName(customer.data.passwordHash);
-
+        const order = await getOrdersById("order-items", idOrders);
+        console.log(order.data);
+        setOrdersQuantity(order.data.quantity);
+        setOrdersPrice(order.data.price);
+        setOrdersProductId(order.data.productId);
+        setOrdersCustomerId(order.data.customerId);
 
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -71,12 +69,12 @@ const EditCustomers = () => {
     };
 
     fetchData();
-  }, [idCustomers]);
+  }, [idOrders]);
 
   useEffect(() => {
     if (checkUpdate) {
       const timeout = setTimeout(() => {
-        navigate("/base/customer/list");
+        navigate("/base/order/list");
       }, 1000); // Thời gian chờ trước khi chuyển hướng (miliseconds)
 
       // Xóa timeout khi component unmount hoặc khi checkUpdate thay đổi
@@ -84,31 +82,25 @@ const EditCustomers = () => {
     }
   }, [checkUpdate, navigate]);
 
-  const handleEditCustomer = async (event) => {
+  const handleEditOrder = async (event) => {
     event.preventDefault();
 
     if (
-      firstName !== "" &&
-      lastName !== "" &&
-      phone !== "" &&
-      email !== "" &&
-      passwordHash !== ""
+      quantity !== "" &&
+      price !== ""
     ) {
-      const customer = {
-        firstName,
-        lastName,
-        phone,
-        email,
-        passwordHash,
+      const order = {
+        quantity,
+        price,
 
       };
-      console.log(customer);
+      console.log(order);
       try {
-        const editedCustomer = await editCustomers(
-          `customers/${idCustomers}`,
-          customer
+        const editedOrder = await editOrders(
+          `order-items/${idOrders}`,
+          order
         );
-        if (editedCustomer.status === 200) {
+        if (editedOrder.status === 200) {
 
           setCheckUpdate(true);
 
@@ -116,7 +108,7 @@ const EditCustomers = () => {
           alert("Bạn chưa nhập đủ thông tin!");
         }
       } catch (error) {
-        console.error("Error editing customer:", error);
+        console.error("Error editing order:", error);
       }
     }
   };
@@ -128,17 +120,46 @@ const EditCustomers = () => {
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <Typography className={classes.title} variant="h4">
-              Edit Customer
+              Edit Order
             </Typography>
             <Grid item xs={12} container>
-              <Grid item xs={12}>
+
+            <Grid item xs={12}>
                 <Typography gutterBottom variant="subtitle1">
-                  First_name
+                  Product_Id
                 </Typography>
                 <TextField
                   id="name"
-                  onChange={(e) => setCustomersFirstName(e.target.value)}
-                  value={firstName}
+                  value={productId}
+                  name="name"
+                  variant="outlined"
+                  size="small"
+                  className={classes.txtInput}
+                  disabled
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography gutterBottom variant="subtitle1">
+                  Customer_Id
+                </Typography>
+                <TextField
+                  id="name"
+                  value={customerId}
+                  name="name"
+                  variant="outlined"
+                  size="small"
+                  className={classes.txtInput}
+                  disabled
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography gutterBottom variant="subtitle1">
+                  Quantity
+                </Typography>
+                <TextField
+                  id="name"
+                  onChange={(e) => setOrdersQuantity(e.target.value)}
+                  value={quantity}
                   name="name"
                   variant="outlined"
                   className={classes.txtInput}
@@ -147,12 +168,12 @@ const EditCustomers = () => {
               </Grid>
               <Grid item xs={12}>
                 <Typography gutterBottom variant="subtitle1">
-                Last_name
+                Price
                 </Typography>
                 <TextField
                   id="icon"
-                  onChange={(e) => setCustomersLastName(e.target.value)}
-                  value={lastName}
+                  onChange={(e) => setOrdersPrice(e.target.value)}
+                  value={price}
                   name="icon"
                   className={classes.txtInput}
                   multiline
@@ -161,61 +182,17 @@ const EditCustomers = () => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
-                <Typography gutterBottom variant="subtitle1">
-                Email
-                </Typography>
-                <TextField
-                  id="icon"
-                  onChange={(e) => setCustomersEmail(e.target.value)}
-                  value={email}
-                  name="icon"
-                  className={classes.txtInput}
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography gutterBottom variant="subtitle1">
-                Password
-                </Typography>
-                <TextField
-                  id="icon"
-                  onChange={(e) => setCustomersPasswordstName(e.target.value)}
-                  value={passwordHash}
-                  name="icon"
-                  className={classes.txtInput}
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography gutterBottom variant="subtitle1">
-                Phone
-                </Typography>
-                <TextField
-                  id="icon"
-                  onChange={(e) => setCustomersPhone(e.target.value)}
-                  value={phone}
-                  name="icon"
-                  className={classes.txtInput}
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                />
-              </Grid>
+
               <Grid item xs={12} style={{ marginTop: "30px" }}>
                 <Button
                   type="button"
-                  onClick={handleEditCustomer}
+                  onClick={handleEditOrder}
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.submit}
                 >
-                  Update Customer
+                  Update Order
                 </Button>
               </Grid>
             </Grid>
@@ -227,4 +204,4 @@ const EditCustomers = () => {
   )
 }
 
-export default EditCustomers
+export default EditOrders

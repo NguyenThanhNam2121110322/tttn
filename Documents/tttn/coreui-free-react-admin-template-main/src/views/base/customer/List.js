@@ -53,7 +53,7 @@ const CustomersList = () => {
 
   useEffect(() => {
     getAllCustomers("customers").then((item) => setCustomers(item.data));
-   
+
   }, [navigate]);
 
   return (

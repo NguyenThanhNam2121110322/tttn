@@ -16,6 +16,7 @@ public interface ProductService {
 
     void deleteProduct(UUID productId);
     List<Product> getProductsByTagName(String tagName);
-
+    List<Product> getProductsByCategoryName(String categoryName);
     Product updateProduct(Product product);
+    
 }

@@ -3,8 +3,10 @@ package com.nguyenthanhnam.exercise03.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nguyenthanhnam.exercise03.entity.Category;
 import com.nguyenthanhnam.exercise03.entity.Product;
 import com.nguyenthanhnam.exercise03.entity.Tag;
+import com.nguyenthanhnam.exercise03.repository.CategoryRepository;
 import com.nguyenthanhnam.exercise03.repository.ProductRepository;
 import com.nguyenthanhnam.exercise03.repository.TagRepository;
 import com.nguyenthanhnam.exercise03.service.GalleryService;
@@ -25,6 +27,8 @@ public class ProductServiceImpl implements ProductService {
     private GalleryService galleryService;
     @Autowired
     private TagRepository tagRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public List<Product> getProductsByTagName(String tagName) {
@@ -87,8 +91,21 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(productId);
     }
 
+
+    @Override
+    public List<Product> getProductsByCategoryName(String categoryName) {
+        Category cat = categoryRepository.findByCategoryName(categoryName);
+        if (cat != null) {
+            List<Product> products = cat.getProducts();
+            // Sắp xếp danh sách sản phẩm theo id lớn hơn
+            Collections.sort(products, Comparator.comparing(Product::getId).reversed());
+            return products;
+        }
+        return null;
+    }
     @Override
     public Product updateProduct(Product product) {
         return productRepository.save(product);
     }
+
 }

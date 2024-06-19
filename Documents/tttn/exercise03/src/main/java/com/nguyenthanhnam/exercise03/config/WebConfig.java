@@ -10,10 +10,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**")
-                .addResourceLocations("file:C:/Users/MyPC/Documents/tttn2/exercise03/src/main/resources/static/upload/");
+                .addResourceLocations("file:D:/Study/TTTN/DoAn_TTTN/exercise03/src/main/resources/static/upload/");
 
         // Thêm đường dẫn cho thư mục categories
         registry.addResourceHandler("/upload/categories/**")
-                .addResourceLocations("file:C:/Users/MyPC/Documents/tttn2/exercise03/src/main/resources/static/upload/categories/");
+                .addResourceLocations("file:D:/Study/TTTN/DoAn_TTTN/exercise03/src/main/resources/static/upload/categories/");
     }
 }

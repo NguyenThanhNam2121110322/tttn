@@ -6,8 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -40,6 +43,10 @@ public class Category extends DateTime {
 
     @Column(name = "active")
     private Boolean active;
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    private List<Product> products;
 
 
     // @ManyToOne

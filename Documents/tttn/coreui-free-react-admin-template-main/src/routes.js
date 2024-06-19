@@ -12,6 +12,7 @@ import EditOrder from './views/base/order/Edit'
 import AddOrder from './views/base/order/Add'
 
 
+
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -41,6 +42,12 @@ const CategoryList=React.lazy(() => import('./views/base/categories/CategoryList
 const AddCategory=React.lazy(() => import('./views/base/categories/AddCategory'))
 const EditCategory=React.lazy(() => import('./views/base/categories/EditCategory'))
 const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'))
+
+
+//slider
+const SlideShowList=React.lazy(() => import('./views/base/slideshows/SlideShowList'))
+const AddSlide=React.lazy(() => import('./views/base/slideshows/AddSlide'))
+const EditSlideShow=React.lazy(() => import('./views/base/slideshows/EditSlideShow'))
 
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
@@ -111,6 +118,11 @@ const routes = [
   { path: '/base/tag/edit/:id', name: 'Tag Edit', element: EditTags },
   { path: '/base/tag/add', name: 'Tag Add', element: AddTag },
 
+    //duong dan slide
+  { path: '/base/slideshows/list', name: 'SlideShow List', element: SlideShowList },
+  { path: '/base/slideshows/add', name: 'SlideShow Add', element: AddSlide },
+  { path: '/base/slideshows/edit/:id', name: 'SlideShow Edit', element: EditSlideShow },
+
   //duong dan customer
   { path: '/base/customer/list', name: 'Customer List', element: CustomerList },
   { path: '/base/customer/edit/:id', name: 'Customer Edit', element: EditCustomer },
@@ -121,7 +133,8 @@ const routes = [
   { path: '/base/order/edit/:id', name: 'Order Edit', element: EditOrder },
   { path: '/base/order/add', name: 'Order Add', element: AddOrder },
 
-  //
+  
+
   { path: '/base/tooltips', name: 'Tooltips', element: Tooltips },
 
 

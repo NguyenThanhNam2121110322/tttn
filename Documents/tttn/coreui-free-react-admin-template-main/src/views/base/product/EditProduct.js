@@ -185,7 +185,7 @@ const EditProduct = () => {
   useEffect(() => {
     if (checkUpdate) {
       const timeout = setTimeout(() => {
-        navigate("/base/tables");
+        navigate("/base/product/list");
       }, 1000); // Thời gian chờ trước khi chuyển hướng (miliseconds)
 
       // Xóa timeout khi component unmount hoặc khi checkUpdate thay đổi

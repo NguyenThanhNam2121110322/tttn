@@ -31,3 +31,9 @@ export function addOrders(endpoint, data) {
 export function deleteOrdersById(endpoint, id) {
   return callApi(`${endpoint}/${id}`, "DELETE");
 }
+export function getAllProducts(endpoint) {
+  return callApi(endpoint, "GET");
+}
+export function getAllCustomers(endpoint, data) {
+  return callApi(endpoint, "GET", data);
+}
