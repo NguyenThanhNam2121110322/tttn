@@ -142,6 +142,11 @@ const _nav = [
         name: 'Order',
         to: '/base/order/list',
       },
+      {
+        component: CNavItem,
+        name: 'Contact',
+        to: '/base/contact/list',
+      },
     ],
   },
   // {

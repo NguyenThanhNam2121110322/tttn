@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { CartProvider } from "./context/CartContext";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
@@ -8,9 +9,11 @@ function App() {
   return (
     <div className="App">
     <CartProvider>
+      
     {/* <Header/> */}
     <Main/>
     {/* <Footer/> */}
+    <Toaster />
     </CartProvider>
     </div>
     

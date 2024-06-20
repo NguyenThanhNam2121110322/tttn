@@ -11,6 +11,10 @@ import OrderList from './views/base/order/List'
 import EditOrder from './views/base/order/Edit'
 import AddOrder from './views/base/order/Add'
 
+import ContactList from './views/base/contact/List'
+import EditContact from './views/base/contact/Edit'
+import AddContact from './views/base/contact/Add'
+
 
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -38,16 +42,16 @@ const EditProduct = React.lazy(() => import('./views/base/product/EditProduct'))
 const AddProduct = React.lazy(() => import('./views/base/product/AddProduct'))
 
 //category
-const CategoryList=React.lazy(() => import('./views/base/categories/CategoryList'))
-const AddCategory=React.lazy(() => import('./views/base/categories/AddCategory'))
-const EditCategory=React.lazy(() => import('./views/base/categories/EditCategory'))
+const CategoryList = React.lazy(() => import('./views/base/categories/CategoryList'))
+const AddCategory = React.lazy(() => import('./views/base/categories/AddCategory'))
+const EditCategory = React.lazy(() => import('./views/base/categories/EditCategory'))
 const Tooltips = React.lazy(() => import('./views/base/tooltips/Tooltips'))
 
 
 //slider
-const SlideShowList=React.lazy(() => import('./views/base/slideshows/SlideShowList'))
-const AddSlide=React.lazy(() => import('./views/base/slideshows/AddSlide'))
-const EditSlideShow=React.lazy(() => import('./views/base/slideshows/EditSlideShow'))
+const SlideShowList = React.lazy(() => import('./views/base/slideshows/SlideShowList'))
+const AddSlide = React.lazy(() => import('./views/base/slideshows/AddSlide'))
+const EditSlideShow = React.lazy(() => import('./views/base/slideshows/EditSlideShow'))
 
 // Buttons
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
@@ -118,7 +122,7 @@ const routes = [
   { path: '/base/tag/edit/:id', name: 'Tag Edit', element: EditTags },
   { path: '/base/tag/add', name: 'Tag Add', element: AddTag },
 
-    //duong dan slide
+  //duong dan slide
   { path: '/base/slideshows/list', name: 'SlideShow List', element: SlideShowList },
   { path: '/base/slideshows/add', name: 'SlideShow Add', element: AddSlide },
   { path: '/base/slideshows/edit/:id', name: 'SlideShow Edit', element: EditSlideShow },
@@ -133,8 +137,12 @@ const routes = [
   { path: '/base/order/edit/:id', name: 'Order Edit', element: EditOrder },
   { path: '/base/order/add', name: 'Order Add', element: AddOrder },
 
-  
+  //duong dan contact
+  { path: '/base/contact/list', name: 'Contact List', element: ContactList },
+  { path: '/base/contact/edit/:id', name: 'Contact Edit', element: EditContact },
+  { path: '/base/contact/add', name: 'Contact Add', element: AddContact },
 
+  //
   { path: '/base/tooltips', name: 'Tooltips', element: Tooltips },
 
 

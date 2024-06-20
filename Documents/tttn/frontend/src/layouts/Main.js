@@ -11,10 +11,14 @@ import Product_ByCat from '../components/Product/ProductByCategory';
 import AllProduct from '../components/Product/AllProduct';
 import Search from '../pages/Search/Search';
 import Payment from '../pages/Payment/Payment';
+import Contact from '../pages/Contact/Contact';
+
 
 function Main() {
   return (
+    
     <Router>
+
         <Header/>
         <Routes>
           <Route path="/" element={<Home/>} />
@@ -26,9 +30,11 @@ function Main() {
           <Route path="/tat-ca-san-pham" element={<AllProduct/>} />
           <Route path="/tim-kiem/:searchValue" element={<Search/>} />
           <Route path="/thanh-toan" element={<Payment/>} />
+          <Route path="/lien-he" element={<Contact/>} />
         </Routes>
         <Footer/>
     </Router>
+    
   )
 }
 

@@ -256,7 +256,7 @@ function Header() {
                 id="navbarCollapse"
               >
                 <div className="navbar-nav mr-auto py-0">
-                  <a href="index.html" className="nav-item nav-link active">
+                  <a href="/" className="nav-item nav-link active">
                     Home
                   </a>
                   <Link to={"/tat-ca-san-pham"} className="nav-item nav-link">
@@ -285,7 +285,7 @@ function Header() {
 
 
 
-                  <a href="contact.html" className="nav-item nav-link">
+                  <a href="lien-he" className="nav-item nav-link">
                     Contact
                   </a>
                 </div>
